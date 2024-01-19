@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 import * as crypto from "crypto";
 
 export enum ProjectStatus  {
-    Pending = 'pennding',
+    Pending = 'pending',
     Active = 'active',
     Cancelled = "cancelled",
     Completed = "completed"
@@ -19,17 +19,17 @@ export class Project {
     @Column()
     description: string;
 
-    @Column()
+    @Column({ nullable: true, type: 'datetime' })
     started_at: Date | null;
 
-    @Column()
+    @Column({ nullable: true, type: 'datetime' })
     cancelled_at: Date | null;
 
-    @Column()
+    @Column({ nullable: true, type: 'datetime' })
     forecasted_at: Date | null;
 
     @Column({ type: 'simple-enum' })
-    status: ProjectStatus;
+    status: ProjectStatus = ProjectStatus.Pending;
 
     constructor(props: {
         name: string;
