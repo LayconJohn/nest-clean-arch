@@ -22,7 +22,7 @@ export class ProjectsService {
   }
 
   findAll() {
-    return `This action returns all projects`;
+    return this.projectRepo.find();
   }
 
   findOne(id: number) {
