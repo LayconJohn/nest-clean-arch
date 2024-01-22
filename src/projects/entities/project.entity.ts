@@ -26,6 +26,9 @@ export class Project {
     cancelled_at: Date | null;
 
     @Column({ nullable: true, type: 'datetime' })
+    finished_at: Date | null;
+
+    @Column({ nullable: true, type: 'datetime' })
     forecasted_at: Date | null;
 
     @Column({ type: 'simple-enum' })
