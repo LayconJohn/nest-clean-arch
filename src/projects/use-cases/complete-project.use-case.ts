@@ -14,6 +14,8 @@ export class CompleteProjectUseCase {
     
         project.complete(input.finished_at);
     
-        return this.projectRepo.update(project);
+        await this.projectRepo.update(project);
+
+        return project;
     }
 }

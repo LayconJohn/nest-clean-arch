@@ -17,6 +17,8 @@ export class StartProjectUseCase {
 
         project.start(input.started_at)
 
-        return this.projectRepo.update(project);
+        await this.projectRepo.update(project);
+
+        return project;
     }
 }

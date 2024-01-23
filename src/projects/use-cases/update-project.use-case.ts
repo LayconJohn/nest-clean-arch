@@ -12,8 +12,10 @@ export class UpdateProjectUseCase {
     async execute(id: string, input: UpdateProjectDto) {
         const project = await this.projectRepo.findById(id)
 
-        project.update(input)
+        project.update(input);
     
-        return this.projectRepo.update(project);
-    }
+        await this.projectRepo.update(project);
+
+        return project;
+      }
 }
