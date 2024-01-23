@@ -1,21 +1,22 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Project, ProjectStatus } from "../entities/project.entity";
 import { Repository } from "typeorm";
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { StartProjectDto } from "../dto/start-project.dto";
+import { ProjectTypeOrmRepository } from "../project.repository";
 
 @Injectable()
 export class StartProjectUseCase {
     constructor(
-        @InjectRepository(Project)
-        private readonly projectRepo: Repository<Project>
+        @Inject('IProjectRepository')
+        private readonly projectRepo: ProjectTypeOrmRepository
     ){}
 
     async execute(id: string, input: StartProjectDto) {
-        const project = await this.projectRepo.findOneOrFail({where: {id} });
+        const project = await this.projectRepo.findById(id);
 
         project.start(input.started_at)
 
-        return this.projectRepo.save(project);
+        return this.projectRepo.create(project);
     }
 }
