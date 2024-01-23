@@ -10,6 +10,8 @@ import { StartProjectUseCase } from './use-cases/start-project.use-case';
 import { StartProjectDto } from './dto/start-project.dto';
 import { CancelProjectDto } from './dto/cancel-project.dto';
 import { CancelProjectUseCase } from './use-cases/cancel-project.use-case';
+import { CompleteProjectDto } from './dto/complete-project.sto';
+import { CompleteProjectUseCase } from './use-cases/complete-project.use-case';
 
 @Controller('projects')
 export class ProjectsController {
@@ -20,7 +22,8 @@ export class ProjectsController {
     private readonly findOneProjectUseCase: FindOneProjectUseCase,
     private readonly updateProjectUseCase: UpdateProjectUseCase,
     private readonly startProjectUseCase: StartProjectUseCase,
-    private readonly cancelProjectUseCase: CancelProjectUseCase
+    private readonly cancelProjectUseCase: CancelProjectUseCase,
+    private readonly completeProjectUseCase: CompleteProjectUseCase
     ) {}
 
   @Post()
@@ -52,6 +55,11 @@ export class ProjectsController {
   @Post(":id/cancel")
   cancel(@Param('id') id: string, @Body() cancelProjectDto: CancelProjectDto) {
     return this.cancelProjectUseCase.execute(id, cancelProjectDto);
+  }
+
+  @Post(":id/complete")
+  complete(@Param('id') id: string, completeProjectDto: CompleteProjectDto ) {
+    return this.completeProjectUseCase.execute(id, completeProjectDto)
   }
 
   @Delete(':id')

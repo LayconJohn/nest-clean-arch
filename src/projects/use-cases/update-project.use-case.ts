@@ -17,22 +17,6 @@ export class UpdateProjectUseCase {
         input.name && (project.name = input.name);
         input.description && (project.description = input.description);
     
-    
-        if (input.cancelled_at) {
-
-        }
-    
-        if (input.finished_at) {
-          if (project.status === ProjectStatus.Completed) throw new Error("Cannot finish completed project")
-    
-          if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot finish cancelled project")
-    
-          if(input.finished_at < project.started_at) throw new Error("Cannot finish before it started")
-    
-          project.status = ProjectStatus.Completed;
-          project.finished_at = input.finished_at; 
-        }
-    
         return this.projectRepo.save(project);
     }
 }

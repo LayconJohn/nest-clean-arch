@@ -9,6 +9,7 @@ import { FindOneProjectUseCase } from './use-cases/find-one-project.use-case';
 import { UpdateProjectUseCase } from './use-cases/update-project.use-case';
 import { StartProjectUseCase } from './use-cases/start-project.use-case';
 import { CancelProjectUseCase } from './use-cases/cancel-project.use-case';
+import { CompleteProjectUseCase } from './use-cases/complete-project.use-case';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CancelProjectUseCase } from './use-cases/cancel-project.use-case';
     FindOneProjectUseCase, 
     UpdateProjectUseCase, 
     StartProjectUseCase,
-    CancelProjectUseCase
+    CancelProjectUseCase,
+    CompleteProjectUseCase
   ],
 })
 export class ProjectsModule {}
