@@ -12,18 +12,10 @@ export class StartProjectUseCase {
     ){}
 
     async execute(id: string, input: StartProjectDto) {
-        const project = await this.projectRepo.findOneOrFail({where: {id} })
-        
-        if (project.status === ProjectStatus.Active) throw new Error("Cannot start actived project");
-    
-        if (project.status === ProjectStatus.Completed) throw new Error("Cannot start completed project");
-  
-        if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot start cancelled project");
-      
-      
-        project.status = ProjectStatus.Active;
-        project.started_at = input.started_at;
+        const project = await this.projectRepo.findOneOrFail({where: {id} });
 
-        return this.projectRepo.save(project)
+        project.start(input.started_at)
+
+        return this.projectRepo.save(project);
     }
 }

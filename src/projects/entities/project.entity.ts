@@ -48,4 +48,15 @@ export class Project {
         this.id = id ?? crypto.randomUUID()
     }
 
+    start(started_at: Date) {
+        if (this.status === ProjectStatus.Active) throw new Error("Cannot start actived project");
+    
+        if (this.status === ProjectStatus.Completed) throw new Error("Cannot start completed project");
+  
+        if (this.status === ProjectStatus.Cancelled) throw new Error("Cannot start cancelled project");
+
+        this.status = ProjectStatus.Active;
+        this.started_at = started_at;
+    }
+
 }
