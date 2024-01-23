@@ -4,13 +4,15 @@ import { ProjectsController } from './projects.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
 import { CreateProjectUseCase } from './use-cases/create-project.use-case';
+import { FindAllProjectsUseCase } from './use-cases/find-all-projects.use-case';
+import { FindOneProjectUseCase } from './use-cases/find-one-project.use-case';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Project])
   ],
   controllers: [ProjectsController],
-  providers: [ProjectsService, CreateProjectUseCase],
+  providers: [ProjectsService, CreateProjectUseCase, FindAllProjectsUseCase, FindOneProjectUseCase],
 })
 export class ProjectsModule {}
  

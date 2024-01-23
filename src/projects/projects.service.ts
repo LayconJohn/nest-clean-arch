@@ -13,21 +13,6 @@ export class ProjectsService {
     private projectRepo: Repository<Project>,
     ) {}
 
-  create(createProjectDto: CreateProjectDto) {
-    const project = new Project(createProjectDto);
-
-    if (createProjectDto.started_at) project.status = ProjectStatus.Active
-
-    return this.projectRepo.save(project)
-  }
-
-  findAll() {
-    return this.projectRepo.find();
-  }
-
-  findOne(id: string) {
-    return this.projectRepo.findOneOrFail({ where: { id  } });
-  }
 
   async update(id: string, updateProjectDto: UpdateProjectDto) {
     const project = await this.projectRepo.findOneOrFail({where: {id} })
