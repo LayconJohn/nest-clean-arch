@@ -14,8 +14,7 @@ export class UpdateProjectUseCase {
     async execute(id: string, input: UpdateProjectDto) {
         const project = await this.projectRepo.findOneOrFail({where: {id} })
 
-        input.name && (project.name = input.name);
-        input.description && (project.description = input.description);
+        project.update(input)
     
         return this.projectRepo.save(project);
     }

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 import * as crypto from "crypto";
+import { UpdateProjectDto } from "../dto/update-project.dto";
 
 export enum ProjectStatus  {
     Pending = 'pending',
@@ -83,4 +84,8 @@ export class Project {
         this.finished_at = finished_at; 
     }
 
+    update(updateProjectDto: UpdateProjectDto) {
+        this.name && (this.name = updateProjectDto.name);
+        this.description && (this.description = updateProjectDto.description);
+    }
 }
