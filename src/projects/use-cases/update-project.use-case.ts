@@ -16,29 +16,10 @@ export class UpdateProjectUseCase {
 
         input.name && (project.name = input.name);
         input.description && (project.description = input.description);
-        
-        if (input.started_at) {
-          if (project.status === ProjectStatus.Active) throw new Error("Cannot start actived project");
-    
-          if (project.status === ProjectStatus.Completed) throw new Error("Cannot start completed project");
-    
-          if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot start cancelled project");
-        
-        
-          project.status = ProjectStatus.Active;
-          project.started_at = input.started_at;
-        }
     
     
         if (input.cancelled_at) {
-          if (project.status === ProjectStatus.Completed) throw new Error("Cannot cancel completed project")
-    
-          if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot cancel cancelled project")
-    
-          if(input.cancelled_at < project.started_at) throw new Error("Cannot cancel before it started")
-    
-          project.status = ProjectStatus.Cancelled;
-          project.cancelled_at = input.cancelled_at; 
+
         }
     
         if (input.finished_at) {

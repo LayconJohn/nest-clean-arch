@@ -47,7 +47,7 @@ export class Project {
         Object.assign(this, props);
         this.id = id ?? crypto.randomUUID()
 
-        if (props.started_at) this.start(props.started_at)
+        if (props?.started_at) this.start(props.started_at)
     }
 
     start(started_at: Date) {
@@ -59,6 +59,17 @@ export class Project {
 
         this.status = ProjectStatus.Active;
         this.started_at = started_at;
+    }
+
+    cancel(cancelled_at: Date) {
+        if (this.status === ProjectStatus.Completed) throw new Error("Cannot cancel completed project")
+    
+        if (this.status === ProjectStatus.Cancelled) throw new Error("Cannot cancel cancelled project")
+  
+        if(this.cancelled_at < this.started_at) throw new Error("Cannot cancel before it started")
+  
+        this.status = ProjectStatus.Cancelled;
+        this.cancelled_at = cancelled_at; 
     }
 
 }
