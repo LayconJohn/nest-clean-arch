@@ -14,6 +14,6 @@ export class CancelProjectUseCase {
 
         project.cancel(input.cancelled_at);
 
-        return this.projectRepo.create(project);
+        return this.projectRepo.update(project);
     }
 }

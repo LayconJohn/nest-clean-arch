@@ -14,6 +14,6 @@ export class UpdateProjectUseCase {
 
         project.update(input)
     
-        return this.projectRepo.create(project);
+        return this.projectRepo.update(project);
     }
 }

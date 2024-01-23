@@ -17,6 +17,6 @@ export class StartProjectUseCase {
 
         project.start(input.started_at)
 
-        return this.projectRepo.create(project);
+        return this.projectRepo.update(project);
     }
 }

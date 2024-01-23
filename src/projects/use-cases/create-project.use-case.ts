@@ -13,9 +13,11 @@ export class CreateProjectUseCase {
         private readonly projectRepo: IProjectRepository
         ) {}
 
-    execute (input: CreateProjectDto) {
+    async execute (input: CreateProjectDto) {
         const project = new Project(input);
     
-        return this.projectRepo.create(project)
+        await this.projectRepo.create(project);
+
+        return project;
     }
 }
