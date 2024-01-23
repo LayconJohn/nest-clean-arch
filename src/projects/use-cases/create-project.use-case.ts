@@ -14,8 +14,6 @@ export class CreateProjectUseCase {
 
     execute (input: CreateProjectDto) {
         const project = new Project(input);
-
-        if (input.started_at) project.status = ProjectStatus.Active
     
         return this.projectRepo.save(project)
     }
