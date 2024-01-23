@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ProjectsService } from './projects.service';
 import { ProjectsController } from './projects.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
@@ -17,7 +16,6 @@ import { CompleteProjectUseCase } from './use-cases/complete-project.use-case';
   ],
   controllers: [ProjectsController],
   providers: [
-    ProjectsService, 
     CreateProjectUseCase, 
     FindAllProjectsUseCase, 
     FindOneProjectUseCase, 

@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ProjectsService } from './projects.service';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Inject } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { CreateProjectUseCase } from './use-cases/create-project.use-case';
@@ -15,16 +14,27 @@ import { CompleteProjectUseCase } from './use-cases/complete-project.use-case';
 
 @Controller('projects')
 export class ProjectsController {
-  constructor(
-    private readonly projectsService: ProjectsService,
-    private readonly createProjectUseCase: CreateProjectUseCase,
-    private readonly findAllProjectsUseCase: FindAllProjectsUseCase,
-    private readonly findOneProjectUseCase: FindOneProjectUseCase,
-    private readonly updateProjectUseCase: UpdateProjectUseCase,
-    private readonly startProjectUseCase: StartProjectUseCase,
-    private readonly cancelProjectUseCase: CancelProjectUseCase,
-    private readonly completeProjectUseCase: CompleteProjectUseCase
-    ) {}
+  @Inject(CreateProjectUseCase)
+  private readonly createProjectUseCase: CreateProjectUseCase;
+
+  @Inject(FindAllProjectsUseCase)
+  private readonly findAllProjectsUseCase: FindAllProjectsUseCase;
+
+  @Inject(FindOneProjectUseCase)
+  private readonly findOneProjectUseCase: FindOneProjectUseCase;
+
+  @Inject(UpdateProjectUseCase)
+  private readonly updateProjectUseCase: UpdateProjectUseCase;
+
+  @Inject(StartProjectUseCase)
+  private readonly startProjectUseCase: StartProjectUseCase;
+
+  @Inject(CancelProjectUseCase)
+  private readonly cancelProjectUseCase: CancelProjectUseCase;
+
+  @Inject(CompleteProjectUseCase)
+  private readonly completeProjectUseCase: CompleteProjectUseCase;
+
 
   @Post()
   create(@Body() createProjectDto: CreateProjectDto) {
@@ -62,8 +72,4 @@ export class ProjectsController {
     return this.completeProjectUseCase.execute(id, completeProjectDto)
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectsService.remove(+id);
-  }
 }
