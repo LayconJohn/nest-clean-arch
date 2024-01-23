@@ -16,6 +16,7 @@ export class UpdateProjectUseCase {
 
         input.name && (project.name = input.name);
         input.description && (project.description = input.description);
+        
         if (input.started_at) {
           if (project.status === ProjectStatus.Active) throw new Error("Cannot start actived project");
     

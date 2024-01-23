@@ -6,6 +6,8 @@ import { CreateProjectUseCase } from './use-cases/create-project.use-case';
 import { FindAllProjectsUseCase } from './use-cases/find-all-projects.use-case';
 import { FindOneProjectUseCase } from './use-cases/find-one-project.use-case';
 import { UpdateProjectUseCase } from './use-cases/update-project.use-case';
+import { StartProjectUseCase } from './use-cases/start-project.use-case';
+import { StartProjectDto } from './dto/start-project.dto';
 
 @Controller('projects')
 export class ProjectsController {
@@ -14,7 +16,8 @@ export class ProjectsController {
     private readonly createProjectUseCase: CreateProjectUseCase,
     private readonly findAllProjectsUseCase: FindAllProjectsUseCase,
     private readonly findOneProjectUseCase: FindOneProjectUseCase,
-    private readonly updateProjectUseCase: UpdateProjectUseCase
+    private readonly updateProjectUseCase: UpdateProjectUseCase,
+    private readonly startProjectUseCase: StartProjectUseCase
     ) {}
 
   @Post()
@@ -35,6 +38,12 @@ export class ProjectsController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.updateProjectUseCase.execute(id, updateProjectDto);
+  }
+
+
+  @Post(":id/start")
+  start(@Param('id') id: string, @Body() startProjectDto: StartProjectDto) {
+    return this.startProjectUseCase.execute(id, startProjectDto)
   }
 
   @Delete(':id')

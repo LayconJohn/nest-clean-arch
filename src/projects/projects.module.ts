@@ -7,13 +7,14 @@ import { CreateProjectUseCase } from './use-cases/create-project.use-case';
 import { FindAllProjectsUseCase } from './use-cases/find-all-projects.use-case';
 import { FindOneProjectUseCase } from './use-cases/find-one-project.use-case';
 import { UpdateProjectUseCase } from './use-cases/update-project.use-case';
+import { StartProjectUseCase } from './use-cases/start-project.use-case';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Project])
   ],
   controllers: [ProjectsController],
-  providers: [ProjectsService, CreateProjectUseCase, FindAllProjectsUseCase, FindOneProjectUseCase, UpdateProjectUseCase],
+  providers: [ProjectsService, CreateProjectUseCase, FindAllProjectsUseCase, FindOneProjectUseCase, UpdateProjectUseCase, StartProjectUseCase],
 })
 export class ProjectsModule {}
  
