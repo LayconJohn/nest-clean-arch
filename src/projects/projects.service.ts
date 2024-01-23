@@ -13,50 +13,6 @@ export class ProjectsService {
     private projectRepo: Repository<Project>,
     ) {}
 
-
-  async update(id: string, updateProjectDto: UpdateProjectDto) {
-    const project = await this.projectRepo.findOneOrFail({where: {id} })
-
-    updateProjectDto.name && (project.name = updateProjectDto.name);
-    updateProjectDto.description && (project.description = updateProjectDto.description);
-    if (updateProjectDto.started_at) {
-      if (project.status === ProjectStatus.Active) throw new Error("Cannot start actived project");
-
-      if (project.status === ProjectStatus.Completed) throw new Error("Cannot start completed project");
-
-      if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot start cancelled project");
-    
-    
-      project.status = ProjectStatus.Active;
-      project.started_at = updateProjectDto.started_at;
-    }
-
-
-    if (updateProjectDto.cancelled_at) {
-      if (project.status === ProjectStatus.Completed) throw new Error("Cannot cancel completed project")
-
-      if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot cancel cancelled project")
-
-      if(updateProjectDto.cancelled_at < project.started_at) throw new Error("Cannot cancel before it started")
-
-      project.status = ProjectStatus.Cancelled;
-      project.cancelled_at = updateProjectDto.cancelled_at; 
-    }
-
-    if (updateProjectDto.finished_at) {
-      if (project.status === ProjectStatus.Completed) throw new Error("Cannot finish completed project")
-
-      if (project.status === ProjectStatus.Cancelled) throw new Error("Cannot finish cancelled project")
-
-      if(updateProjectDto.finished_at < project.started_at) throw new Error("Cannot finish before it started")
-
-      project.status = ProjectStatus.Completed;
-      project.finished_at = updateProjectDto.finished_at; 
-    }
-
-    return this.projectRepo.save(project);
-  }
-
   remove(id: number) {
     return `This action removes a #${id} project`;
   }

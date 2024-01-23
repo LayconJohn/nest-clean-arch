@@ -5,6 +5,7 @@ import { UpdateProjectDto } from './dto/update-project.dto';
 import { CreateProjectUseCase } from './use-cases/create-project.use-case';
 import { FindAllProjectsUseCase } from './use-cases/find-all-projects.use-case';
 import { FindOneProjectUseCase } from './use-cases/find-one-project.use-case';
+import { UpdateProjectUseCase } from './use-cases/update-project.use-case';
 
 @Controller('projects')
 export class ProjectsController {
@@ -12,7 +13,8 @@ export class ProjectsController {
     private readonly projectsService: ProjectsService,
     private readonly createProjectUseCase: CreateProjectUseCase,
     private readonly findAllProjectsUseCase: FindAllProjectsUseCase,
-    private readonly findOneProjectUseCase: FindOneProjectUseCase
+    private readonly findOneProjectUseCase: FindOneProjectUseCase,
+    private readonly updateProjectUseCase: UpdateProjectUseCase
     ) {}
 
   @Post()
@@ -32,7 +34,7 @@ export class ProjectsController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
-    return this.projectsService.update(id, updateProjectDto);
+    return this.updateProjectUseCase.execute(id, updateProjectDto);
   }
 
   @Delete(':id')
